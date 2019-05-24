@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Show front page
+Route::get('/', 'FrontController@home');
+
+// Authentication
+Route::get('/login', 'AuthController@login');
+Route::get('/logout', 'AuthController@logout');
