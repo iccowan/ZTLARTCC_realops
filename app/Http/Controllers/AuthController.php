@@ -21,7 +21,8 @@ class AuthController extends Controller
         // Make the request
         $client = new Client();
         $result = $client->request('GET', 'https://cert.vatsim.net/sso/api/login_token?oauth_consumer_key=' . $consumer . '&oauth_signature_method=' . $signature_method . '&oauth_timestamp=' . $timestamp . '&oauth_nonce=' . $nonce . '&oauth_callback=' . $callback . '&oauth_signature=' . $sig);
-
+        $res = $client->request('GET', 'https://cert.vatsim.net/sso/test.php');
+        dd($res->getBody());
         dd(json_decode($result->getBody()));
 
     }
