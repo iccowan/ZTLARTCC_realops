@@ -13,7 +13,7 @@ class AuthController extends Controller
         // Get the parameters
         $consumer = Config::get('vatsim.consumer_key');
         $signature_method = Config::get('vatsim.method');
-        $timestamp = Carbon::now()->timestamp();
+        $timestamp = Carbon::now()->timestamp;
         $nonce = md5(microtime() . mt_rand());
         $callback = Config::get('vatsim.callback_url');
         $sig = Config::get('vatsim.sso_key');
