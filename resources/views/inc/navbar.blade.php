@@ -17,7 +17,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dashboard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i>Welcome,</i> {{ Auth::user()->full_name }}</a>
                         <div class="dropdown-menu" aria-labelledby="dashboard">
-                            <a class="dropdown-item" href="/manage-booking">Manage your Booking</a>
+                            @if(Auth::user()->hasBooking() || Auth::user()->isStaff())
+                                <a class="dropdown-item" href="/manage-booking">Manage your Booking</a>
+                            @endif
                             <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>

@@ -15,7 +15,7 @@ class FrontController extends Controller
         $flights = Flight::orderBy('dep_time')->paginate(100);
 
         // Get the front page message
-        $msg = FrontMsg::first();
+        $msg = FrontMsg::find(1);
 
         return view('site.home')->with('flights', $flights)->with('msg', $msg);
     }
@@ -26,20 +26,32 @@ class FrontController extends Controller
 
     public function addBooking($id) {
         $flight = Flight::find($id);
-        $booking = $flight->book(Auth::id());
+        if($flight->isBooked()) {
+           return redirect('/bookings')->with('error', 'That flight is already booked.');
+        } elseif(Auth::user()->hasBooking()) {
+            return redirect('/bookings')->with('error', 'You already have a booking. Please cancel your booking to create a new one.');
+        }
 
-        return redirect('/bookings')->with('success', 'The booking was made successfully!');
+        // If the flight isn't booked and the user does not have a booking, book the flight
+        $flight->book(Auth::id());
+
+        return redirect('/manage-booking')->with('success', 'The booking was made successfully!');
     }
 
-    public function removeBooking($id) {
-        $flight = Flight::find($id);
+    public function removeBooking() {
+        $booking = Booking::where('pilot_id', Auth::id())->first();
+        if($booking) {
+            $flight = Flight::find($booking->flight_id);
+        } else {
+            return redirect('/')->with('error', 'The booking does not exist.');
+        }
 
         $success = $flight->unbook();
 
         if($success) {
-            return redirect()->back()->with('success', 'Booking cancelled successfully!');
+            return redirect('/')->with('success', 'Booking cancelled successfully!');
         } else {
-            return redirect()->back()->with('error', 'The booking does not exist.');
+            return redirect('/')->with('error', 'The booking does not exist.');
         }
     }
 
@@ -52,7 +64,7 @@ class FrontController extends Controller
 
     public function updateFrontMessage(Request $request) {
         if(Auth::user()->isStaff()) {
-            $front_msg = FrontMsg::first();
+            $front_msg = FrontMsg::find(1);
             $front_msg->content = $request->message;
             $front_msg->lastUpdatedBy = Auth::id();
             $front_msg->save();
@@ -64,13 +76,33 @@ class FrontController extends Controller
     }
 
     public function manageYourBooking() {
-        if(Auth::user()->hasBooking()) {
+        if(Auth::user()->isStaff() && !Auth::user()->hasBooking()) {
             $booking = Booking::where('pilot_id', Auth::id())->first();
             $flight = Flight::find($booking->flight_id);
+            $message = FrontMsg::find(2);
 
-            return view('site.manage-your-booking');
+            return view('site.manage-your-booking')->with('flight', $flight)->with('message', $message);
+        } elseif(Auth::user()->hasBooking()) {
+            $booking = Booking::where('pilot_id', Auth::id())->first();
+            $flight = Flight::find($booking->flight_id);
+            $message = FrontMsg::find(2);
+
+            return view('site.manage-your-booking')->with('flight', $flight)->with('message', $message);
         } else {
             return redirect('/bookings')->with('error', 'You must make a booking first!');
+        }
+    }
+
+    public function updateEcMessage(Request $request) {
+        if(Auth::user()->isStaff()) {
+            $front_msg = FrontMsg::find(2);
+            $front_msg->content = $request->message;
+            $front_msg->lastUpdatedBy = Auth::id();
+            $front_msg->save();
+
+            return redirect('/manage-booking')->with('success', 'The EC message has been updated.');
+        } else {
+            return redirect()->back()->with('error', 'You are not allowed to do that.');
         }
     }
 }
