@@ -17,6 +17,7 @@ class Emails extends Migration
             $table->increments('id');
             $table->string('email_address');
             $table->string('view');
+            $table->string('subject');
             $table->text('message')->nullable();
             $table->boolean('sent');
             $table->dateTime('sent_at')->nullable();

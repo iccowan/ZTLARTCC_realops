@@ -78,7 +78,11 @@ class FrontController extends Controller
     public function manageYourBooking() {
         if(Auth::user()->isStaff() && !Auth::user()->hasBooking()) {
             $booking = Booking::where('pilot_id', Auth::id())->first();
-            $flight = Flight::find($booking->flight_id);
+            if($booking) {
+                $flight = Flight::find($booking->flight_id);
+            } else {
+                $flight = null;
+            }
             $message = FrontMsg::find(2);
 
             return view('site.manage-your-booking')->with('flight', $flight)->with('message', $message);

@@ -33,6 +33,11 @@ Route::get('/booking/remove', 'FrontController@removeBooking')->middleware('auth
 // Flight management
 Route::get('/booking/manage/{id}', 'FlightController@manageFlight')->middleware('auth');
 
+// Add and update flights
+Route::get('/new-flight', 'FlightController@addFlight')->middleware('auth');
+Route::post('/new-flight/save', 'FlightController@storeFlight')->middleware('auth');
+Route::get('/booking-manage/delete/{id}', 'FlightController@deleteFlight')->middleware('auth');
+
 // Authentication
 Route::get('/login', 'AuthController@testLogin');
 Route::get('/logout', 'AuthController@logout');

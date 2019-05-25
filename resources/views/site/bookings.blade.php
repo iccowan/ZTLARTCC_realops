@@ -15,6 +15,10 @@
     <br>
 
     <div class="container">
+        @if(Auth::check() && Auth::user()->isStaff())
+            <a href="/new-flight" class="btn btn-primary">Add New Flight</a>
+            <br><br>
+        @endif
         <div class="table">
             <table class="table table-bordered">
                 <thead>
