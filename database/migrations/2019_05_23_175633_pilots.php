@@ -13,7 +13,16 @@ class Pilots extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('pilots', function(Blueprint $table) {
+           $table->integer('id');
+           $table->primary('id');
+           $table->string('fname');
+           $table->string('lname');
+           $table->string('email');
+           $table->boolean('is_ztl_staff');
+           $table->string('remember_token')->nullable();
+           $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class Pilots extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('pilots');
     }
 }

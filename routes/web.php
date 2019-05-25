@@ -14,6 +14,9 @@
 // Show front page
 Route::get('/', 'FrontController@home');
 
+// Update front message
+Route::post('/frontmessage/update', 'FrontController@updateFrontMessage');
+
 // Authentication
-Route::get('/login', 'AuthController@login');
+Route::get('/login', 'AuthController@testLogin');
 Route::get('/logout', 'AuthController@logout');

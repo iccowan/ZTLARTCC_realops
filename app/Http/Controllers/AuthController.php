@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Auth;
 use Carbon\Carbon;
 use Config;
 use GuzzleHttp\Client;
@@ -24,6 +26,23 @@ class AuthController extends Controller
         $res = $client->request('GET', 'https://cert.vatsim.net/sso/test.php');
         echo $res->getBody();
         dd(json_decode($result->getBody()));
+    }
 
+    public function testLogin(Request $request) {
+        $type = $request->acct;
+
+        if($type == 'pilot') {
+            Auth::login(User::find(1371395));
+        } elseif($type == 'staff') {
+            Auth::login(User::find(1364926));
+        }
+
+        return redirect('/');
+    }
+
+    public function logout() {
+        Auth::logout();
+
+        return redirect('/')->with('success', 'You were logged out successfully.');
     }
 }

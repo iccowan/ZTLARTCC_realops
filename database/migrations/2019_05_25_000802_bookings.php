@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Flights extends Migration
+class Bookings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class Flights extends Migration
      */
     public function up()
     {
-        Schema::create('flights', function(Blueprint $table) {
+        Schema::create('bookings', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('callsign');
-            $table->string('departure');
-            $table->string('arrival');
-            $table->text('flight_plan');
-            $table->dateTime('dep_time');
-            $table->dateTime('arr_time');
+            $table->integer('pilot_id');
+            $table->integer('flight_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class Flights extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('flights');
+        Schema::dropIfExists('bookings');
     }
 }
