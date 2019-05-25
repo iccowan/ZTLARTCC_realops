@@ -36,7 +36,10 @@ Route::get('/booking/manage/{id}', 'FlightController@manageFlight')->middleware(
 // Add and update flights
 Route::get('/new-flight', 'FlightController@addFlight')->middleware('auth');
 Route::post('/new-flight/save', 'FlightController@storeFlight')->middleware('auth');
+Route::get('/edit-flight/{id}', 'FlightController@editFlight')->middleware('auth');
+Route::post('/edit-flight/{id}/save', 'FlightController@updateFlight')->middleware('auth');
 Route::get('/booking-manage/delete/{id}', 'FlightController@deleteFlight')->middleware('auth');
+Route::get('/booking-manage/remove/{id}', 'FlightController@removeBooking')->middleware('auth');
 
 // Authentication
 Route::get('/login', 'AuthController@testLogin');

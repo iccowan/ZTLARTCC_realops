@@ -43,10 +43,10 @@
                     <div class="card-body">
                         <a href="/bookings" class="btn btn-info btn-block"><i class="fas fa-arrow-left"></i> Go Back</a>
                         @if($flight->isBooked())
-                            <a href="/booking-manage/remove" class="btn btn-info btn-block">Cancel this Booking</a>
+                            <a href="/booking-manage/remove/{{ $flight->id }}" class="btn btn-info btn-block">Cancel this Booking</a>
                             <a href="mailto:{{ \App\User::find($booking->pilot_id)->email }}" class="btn btn-info btn-block">Email the Pilot</a>
                         @endif
-                        <a href="/booking-manage/edit" class="btn btn-info btn-block">Update this Flight</a>
+                        <a href="/edit-flight/{{ $flight->id }}" class="btn btn-info btn-block">Update this Flight</a>
                         <a href="/booking-manage/delete/{{ $flight->id }}" class="btn btn-danger btn-block">Delete this Flight</a>
                         <hr>
                         <h5>Thank you for signing up to fly in the real ops event! We look forward to having you fly within the Atlanta airspace!</h5>

@@ -72,4 +72,17 @@ class Flight extends Model
         return $time;
     }
 
+    // Format dep time for editing
+    public function getDepTimeEditAttribute() {
+        $time = Carbon::parse($this->dep_time)->format('m/d/Y H:i');
+
+        return $time;
+    }
+
+    // Format arr time for editing
+    public function getArrTimeEditAttribute() {
+        $time = Carbon::parse($this->arr_time)->format('m/d/Y H:i');
+
+        return $time;
+    }
 }

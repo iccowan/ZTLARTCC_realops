@@ -24,12 +24,12 @@ class FlightController extends Controller
         if(Auth::user()->isStaff()) {
             // Validate
             $request->validate([
-                'callsign' => 'required',
+                'callsign' => 'required|unique:flights',
                 'departure' => 'required',
                 'arrival' => 'required',
                 'dep_time' => 'required',
                 'arr_time' => 'required',
-                'flight_plan' => 'required'
+                'flt_plan' => 'required'
             ]);
 
             // Create the flight
@@ -42,7 +42,7 @@ class FlightController extends Controller
             $flight->flight_plan = $request->flt_plan;
             $flight->save();
 
-            return redirect('/bookings/manage/' . $flight->id)->with('success', 'The flight was added successfully!');
+            return redirect('/booking/manage/' . $flight->id)->with('success', 'The flight was added successfully!');
         } else {
             return redirect()->back()->with('error', 'You must be staff to do this.');
         }
@@ -58,7 +58,7 @@ class FlightController extends Controller
     public function editFlight($id) {
         if(Auth::user()->isStaff()) {
             $flight = Flight::find($id);
-            return view('site.new-flight')->with('flight', $flight);
+            return view('site.edit-flight')->with('flight', $flight);
         } else {
             return redirect()->back()->with('error', 'You must be staff to do this.');
         }
@@ -66,8 +66,15 @@ class FlightController extends Controller
 
     public function updateFlight(Request $request, $id) {
         if(Auth::user()->isStaff()) {
+            $request->validate([
+                'departure' => 'required',
+                'arrival' => 'required',
+                'dep_time' => 'required',
+                'arr_time' => 'required',
+                'flt_plan' => 'required'
+            ]);
+
             $flight = Flight::find($id);
-            $flight->callsign = $request->callsign;
             $flight->departure = $request->departure;
             $flight->arrival = $request->arrival;
             $flight->dep_time = Carbon::parse($request->dep_time);
@@ -75,7 +82,7 @@ class FlightController extends Controller
             $flight->flight_plan = $request->flt_plan;
             $flight->save();
 
-            return redirect('/bookings/manage/' . $id)->with('success', 'The flight was updated successfully!');
+            return redirect('/booking/manage/' . $id)->with('success', 'The flight was updated successfully!');
         } else {
             return redirect()->back()->with('error', 'You must be staff to do this.');
         }
@@ -109,7 +116,7 @@ class FlightController extends Controller
 
     public function removeBooking($id) {
         if(Auth::user()->isStaff()) {
-            $booking = Booking::find($id);
+            $booking = Booking::where('flight_id', $id)->first();
             if($booking) {
                 // Send the pilot an email letting them know their booking was removed
                 $pilot = User::find($booking->pilot_id);
@@ -119,6 +126,8 @@ class FlightController extends Controller
                 $email->view = 'emails.booking-removed';
                 $email->sent = 0;
                 $email->save();
+
+                $booking->delete();
 
                 return redirect('/bookings')->with('success', 'The booking was removed successfully.');
             } else {
