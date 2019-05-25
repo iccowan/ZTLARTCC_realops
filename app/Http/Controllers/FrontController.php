@@ -12,7 +12,7 @@ class FrontController extends Controller
 {
     public function home() {
         // Get all of the flights
-        $flights = Flight::orderBy('dep_time')->get();
+        $flights = Flight::orderBy('dep_time')->paginate(100);
 
         // Get the front page message
         $msg = FrontMsg::first();
@@ -28,7 +28,7 @@ class FrontController extends Controller
         $flight = Flight::find($id);
         $booking = $flight->book(Auth::id());
 
-        return view('')->with('booking', $booking);
+        return redirect('/bookings')->with('success', 'The booking was made successfully!');
     }
 
     public function removeBooking($id) {
@@ -45,9 +45,9 @@ class FrontController extends Controller
 
     public function viewBookings() {
         // Get all bookings
-        $bookings = Booking::orderBy('departure_time')->get();
+        $flights = Flight::orderBy('dep_time')->get();
         
-        return view('')->with('bookings', $bookings);
+        return view('site.bookings')->with('flights', $flights);
     }
 
     public function updateFrontMessage(Request $request) {
@@ -60,6 +60,17 @@ class FrontController extends Controller
             return redirect('/')->with('success', 'The front page message has been updated.');
         } else {
             return redirect()->back()->with('error', 'You are not allowed to do that.');
+        }
+    }
+
+    public function manageYourBooking() {
+        if(Auth::user()->hasBooking()) {
+            $booking = Booking::where('pilot_id', Auth::id())->first();
+            $flight = Flight::find($booking->flight_id);
+
+            return view('site.manage-your-booking');
+        } else {
+            return redirect('/bookings')->with('error', 'You must make a booking first!');
         }
     }
 }

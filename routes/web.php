@@ -17,6 +17,15 @@ Route::get('/', 'FrontController@home');
 // Update front message
 Route::post('/frontmessage/update', 'FrontController@updateFrontMessage');
 
+// View bookings
+Route::get('/bookings', 'FrontController@viewBookings');
+
+// Manage your own booking
+Route::get('/manage-booking', 'FrontController@manageYourBooking');
+
+// Book a flight
+Route::get('/book/{id}', 'FrontController@addBooking');
+
 // Authentication
 Route::get('/login', 'AuthController@testLogin');
 Route::get('/logout', 'AuthController@logout');
