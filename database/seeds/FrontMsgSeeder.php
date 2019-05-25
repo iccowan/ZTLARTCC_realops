@@ -19,6 +19,12 @@ class FrontMsgSeeder extends Seeder
         $msg->lastUpdatedBy = 1364926;
         $msg->save();
 
+        // Add a message
+        $msg = new FrontMsg();
+        $msg->message = 'Initialize';
+        $msg->lastUpdatedBy = 1364926;
+        $msg->save();
+
         // Add me! (The first user)
         $user = new User();
         $user->id = 1364926;
