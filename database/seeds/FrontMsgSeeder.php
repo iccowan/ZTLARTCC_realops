@@ -15,13 +15,13 @@ class FrontMsgSeeder extends Seeder
     {
         // Add a message
         $msg = new FrontMsg();
-        $msg->message = 'Initialize';
+        $msg->content = 'Initialize';
         $msg->lastUpdatedBy = 1364926;
         $msg->save();
 
         // Add a message
         $msg = new FrontMsg();
-        $msg->message = 'Initialize';
+        $msg->content = 'Initialize';
         $msg->lastUpdatedBy = 1364926;
         $msg->save();
 
