@@ -57,9 +57,10 @@ class FrontController extends Controller
 
     public function viewBookings() {
         // Get all bookings
-        $flights = Flight::orderBy('dep_time')->get();
+        $flights_dep = Flight::where('departure', 'KATL')->orderBy('dep_time')->get();
+        $flights_arr = Flight::where('arrival', 'KATL')->orderBy('dep_time')->get();
         
-        return view('site.bookings')->with('flights', $flights);
+        return view('site.bookings')->with('flights_dep', $flights_dep)->with('flights_arr', $flights_arr);
     }
 
     public function updateFrontMessage(Request $request) {

@@ -72,7 +72,10 @@
         <br>
         <hr>
         <br>
-        <center><h3>Flights</h3></center>
+        <center>
+            <h3>Flights</h3>
+            <a href="/bookings"><p>View All Flights!</p></a>
+        </center>
         <div class="table table-wrapper-scroll-y my-custom-scrollbar">
             <table class="table table-bordered">
                 <thead>
