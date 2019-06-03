@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('send:emails')->everyFiveMinutes();
+        $schedule->command('RWFlights:Pull')->cron('*/15 * * * *');
     }
 
     /**

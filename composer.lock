@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4331f783eaebc2d99e64b719287bc27b",
+    "content-hash": "3571139540c35f64889c733d9f333dff",
     "packages": [
         {
             "name": "bonroyage/oauth",
