@@ -28,7 +28,7 @@ class FrontController extends Controller
         $flight = Flight::find($id);
         if($flight->isBooked()) {
            return redirect('/bookings')->with('error', 'That flight is already booked.');
-        } elseif(Auth::user()->hasBooking()) {
+        } elseif(Auth::user()->hasBooking() && Auth::user()->canBookAnother($id)) {
             return redirect('/bookings')->with('error', 'You already have a booking. Please cancel your booking to create a new one.');
         }
 
@@ -38,8 +38,8 @@ class FrontController extends Controller
         return redirect('/manage-booking')->with('success', 'The booking was made successfully!');
     }
 
-    public function removeBooking() {
-        $booking = Booking::where('pilot_id', Auth::id())->first();
+    public function removeBooking($id) {
+        $booking = Booking::where('pilot_id', Auth::id())->where('flight_id', $id)->first();
         if($booking) {
             $flight = Flight::find($booking->flight_id);
         } else {
@@ -88,11 +88,32 @@ class FrontController extends Controller
 
             return view('site.manage-your-booking')->with('flight', $flight)->with('message', $message);
         } elseif(Auth::user()->hasBooking()) {
-            $booking = Booking::where('pilot_id', Auth::id())->first();
-            $flight = Flight::find($booking->flight_id);
+            $booking = Booking::where('pilot_id', Auth::id())->get();
+            $flights_unordered = array();
+            $i = 0;
+            foreach($booking as $b) {
+                $f = Flight::find($b->flight_id);
+                $flights_unordered[$i] = $f;
+                $i++;
+            }
+
+            // Reorder the flights in order of departure time if more than 1
+            if(count($flights_unordered) > 1) {
+                $flights = array();
+                $j = 0;
+                $f1 = $flights_unordered[0];
+                $f2 = $flights_unordered[1];
+                if($f1->dep_time > $f2->dep_time) {
+                    $flights = [$f2, $f1];
+                } else {
+                    $flights = [$f1, $f2];
+                }
+            } else {
+                $flights = $flights_unordered;
+            }
             $message = FrontMsg::find(2);
 
-            return view('site.manage-your-booking')->with('flight', $flight)->with('message', $message);
+            return view('site.manage-your-booking')->with('flights', $flights)->with('message', $message);
         } else {
             return redirect('/bookings')->with('error', 'You must make a booking first!');
         }

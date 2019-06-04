@@ -15,42 +15,55 @@
     <br>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Flight Details</h3>
-                    </div>
-                    @if($flight)
-                        <div class="card-body">
-                            <p><b>Callsign:</b> {{ $flight->callsign }}</p>
-                            <p><b>Departure Airport:</b> {{ $flight->departure }}</p>
-                            <p><b>Arrival Airport:</b> {{ $flight->arrival }}</p>
-                            <p><b>Departure/Arrival Time (Zulu):</b> {{ $flight->dep_time_formatted }} - {{ $flight->arr_time_formatted }}</p>
-                            <p><b>Recommended Route of Flight:</b></p>
-                            <p>{{ $flight->flight_plan }}</p>
+        @if($flights)
+            @foreach($flights as $flight)
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Flight Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <p><b>Callsign:</b> {{ $flight->callsign }}</p>
+                                <p><b>Departure Airport:</b> {{ $flight->departure }}</p>
+                                <p><b>Arrival Airport:</b> {{ $flight->arrival }}</p>
+                                <p><b>Departure/Arrival Time (Zulu):</b> {{ $flight->dep_time_formatted }} - {{ $flight->arr_time_formatted }}</p>
+                                <p><b>Recommended Route of Flight:</b></p>
+                                <p>{{ $flight->flight_plan }}</p>
+                            </div>
                         </div>
-                    @else
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Booking Actions</h3>
+                            </div>
+                            <div class="card-body">
+                                <a href="/booking/remove/{{ $flight->id }}" class="btn btn-info btn-block">Cancel your Booking</a>
+                                <a href="mailto:ec@ztlartcc.org" class="btn btn-info btn-block">Questions? Email the EC</a>
+                                <hr>
+                                <h5>Thank you for signing up to fly in the real ops event! We look forward to having you fly within the Atlanta airspace!</h5>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                <br>
+            @endforeach
+        @else
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Flight Details</h3>
+                        </div>
                         <div class="card-body">
                             <p><i>No flight booked; you must be a staff.</i></p>
                         </div>
-                    @endif
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Booking Actions</h3>
-                    </div>
-                    <div class="card-body">
-                        <a href="/booking/remove" class="btn btn-info btn-block">Cancel your Booking</a>
-                        <a href="mailto:ec@ztlartcc.org" class="btn btn-info btn-block">Questions? Email the EC</a>
-                        <hr>
-                        <h5>Thank you for signing up to fly in the real ops event! We look forward to having you fly within the Atlanta airspace!</h5>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
         <br>
         <div class="card">
             <div class="card-header">

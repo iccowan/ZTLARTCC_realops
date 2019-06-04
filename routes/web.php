@@ -28,7 +28,7 @@ Route::post('/ecmessage/update', 'FrontController@UpdateEcMessage')->middleware(
 
 // Book a flight
 Route::get('/book/{id}', 'FrontController@addBooking')->middleware('auth');
-Route::get('/booking/remove', 'FrontController@removeBooking')->middleware('auth');
+Route::get('/booking/remove/{id}', 'FrontController@removeBooking')->middleware('auth');
 
 // Flight management
 Route::get('/booking/manage/{id}', 'FlightController@manageFlight')->middleware('auth');
