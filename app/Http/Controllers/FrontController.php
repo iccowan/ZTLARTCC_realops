@@ -28,12 +28,20 @@ class FrontController extends Controller
         $flight = Flight::find($id);
         if($flight->isBooked()) {
            return redirect('/bookings')->with('error', 'That flight is already booked.');
-        } elseif(Auth::user()->hasBooking() && Auth::user()->canBookAnother($id)) {
+        } elseif(Auth::user()->hasBooking() && !Auth::user()->canBookAnother($id)) {
             return redirect('/bookings')->with('error', 'You already have a booking. Please cancel your booking to create a new one.');
         }
 
         // If the flight isn't booked and the user does not have a booking, book the flight
         $flight->book(Auth::id());
+
+        // Email a confirmation email
+        $email = new Email();
+        $email->email_address = Auth::user()->email;
+        $email->subject = '[Confirmation] Thank you for booking a flight for the ZTL Real Ops Event';
+        $email->view = 'emails.flight-booked';
+        $email->sent = 0;
+        $email->save();
 
         return redirect('/manage-booking')->with('success', 'The booking was made successfully!');
     }

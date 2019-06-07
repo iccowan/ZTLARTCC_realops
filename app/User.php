@@ -69,7 +69,7 @@ class User extends Authenticatable
             $proposed_arrtime = $proposed_arrtime->timestamp;
 
             // Don't allow 2 departures or 2 arrivals
-            if ($booked_flight->departure == $proposed_flight->departure || $booked_flight->arrival == $proposed_flight->arrival)
+            if (strtoupper($booked_flight->departure) == strtoupper($proposed_flight->departure) || strtoupper($booked_flight->arrival) == strtoupper($proposed_flight->arrival))
                 return false;
 
             // Don't allow the bookings to overlap
@@ -77,14 +77,14 @@ class User extends Authenticatable
                 return false;
             } else {
                 if($booked_deptime < $proposed_deptime) {
-                    $f1 = $booked_arrtime;
+                    $f1 = $booked_arrtime + 600;
                     $f2 = $proposed_deptime;
                 } else {
                     $f2 = $booked_deptime;
-                    $f1 = $proposed_arrtime;
+                    $f1 = $proposed_arrtime + 600;
                 }
 
-                if($f1 >= $f2)
+                if($f1 > $f2)
                     return false;
             }
         }

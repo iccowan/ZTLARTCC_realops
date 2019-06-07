@@ -106,6 +106,62 @@
                 </tbody>
             </table>
         </div>
+        <br>
+        <hr>
+        <br>
+        <center>
+            <h3>Frequently Asked Questions</h3>
+        </center>
+        <br>
+        <ul>
+            <li>
+                <b><small>Q: </small>Can I book a flight?</b>
+                <br>
+                <small>A: </small>Yes! As long as you are a registered VATSIM member, you can book up to one departure and one arrival during the event.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>How many flights can I book?</b>
+                <br>
+                <small>A: </small>You may book a total of TWO flights. One arrival and one departure. Please note that the arrival and departure times must be at least ten minutes apart in order to allow for time to turn the airplane.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>Why can I not book another flight?</b>
+                <br>
+                <small>A: </small>As stated above, you may only book one arrival flight and one departure flight with at least a ten minute gap between the arrival and departure times. If you are still having problems booking a flight, please let a member of the ZTL ARTCC staff know for assistance.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>How do I cancel my booking?</b>
+                <br>
+                <small>A: </small>To cancel a booking, click on your name in the upper right hand corner (after logging in) and click on "Manage your Bookings". From here, you can view all of the information regarding your booking(s) and cancel a booking if necessary.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>Am I required to fly the provided route?</b>
+                <br>
+                <small>A: </small>No, although it is highly recommended. All flights are real world flights with the most recent routes. We cannot force you to fly a route if you are unable, but it will help all of the controllers, and add to realism, if you file the suggested flight plan.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>Do I have to fly at the scheduled time?</b>
+                <br>
+                <small>A: </small>Again, no, although it is highly recommended. Our staff have checked the schedule to make sure there will be as few delays as possible with the available bookings so if you depart at your scheduled time, there will be much less waiting around prior to departure/landing.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>How can I get into contact with staff?</b>
+                <br>
+                <small>A: </small>If you have questions regarding the event, please email the events coordinator at <a href="mailto:ec@ztlartcc.org">ec@ztlartcc.org</a>. If you have issues with the website, please contact the webmaster at <a href="mailto:wm@ztlartcc.org">wm@ztlartcc.org</a>. Please direct all other questions/inquires to the air traffic manager at <a href="mailto:atm@ztlartcc.org">atm@ztlartcc.org</a>.
+            </li>
+            <br>
+            <li>
+                <b><small>Q: </small>I've never heard of VATSIM. What is this?</b>
+                <br>
+                <small>A: </small>VATSIM is an online simulation network for aviation enthusiasts around the world. This is in no way associated with any real-world air traffic centers or aviation companies. This is not our main website either. If you would like more information, check out <a href="www.vatsim.net">www.vatsim.net</a> or our website at <a href="www.ztlartcc.org">www.ztlartcc.org</a>. We hope to see you on the network!
+            </li>
+        </ul>
     </div>
 
     <script>
