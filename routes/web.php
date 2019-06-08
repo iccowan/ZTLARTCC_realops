@@ -42,5 +42,5 @@ Route::get('/booking-manage/delete/{id}', 'FlightController@deleteFlight')->midd
 Route::get('/booking-manage/remove/{id}', 'FlightController@removeBooking')->middleware('auth');
 
 // Authentication
-Route::get('/login', 'AuthController@testLogin');
+Route::get('/login', 'AuthController@login');
 Route::get('/logout', 'AuthController@logout');
