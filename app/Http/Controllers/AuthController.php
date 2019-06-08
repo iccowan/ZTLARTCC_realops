@@ -31,7 +31,7 @@ class AuthController extends Controller
         // Make the request
         $client = new Client();
         $query = http_build_query($data);
-        $result = $client->request('GET', 'http://sso.hardern.net/server/api/login_token?' . $query);
+        $result = $client->request('GET', 'https://cert.vatsim.net/sso/api/login_token?' . $query);
         dd(json_decode($result->getBody()));
     }
 
