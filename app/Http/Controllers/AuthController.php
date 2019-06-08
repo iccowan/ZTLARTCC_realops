@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         // Make the request
         $client = new Client();
-        $result = $client->request('GET', 'http://sso.hardern.net/server/api/login_token?oauth_consumer_key=' . $consumer . '&oauth_signature_method=' . $signature_method . '&oauth_timestamp=' . $timestamp . '&oauth_nonce=' . $nonce . '&oauth_callback=' . $callback . '&oauth_signature=' . $sig);
+        $result = $client->request('GET', 'https://cert.vatsim.net/sso/server/api/login_token?oauth_consumer_key=' . $consumer . '&oauth_signature_method=' . $signature_method . '&oauth_timestamp=' . $timestamp . '&oauth_nonce=' . $nonce . '&oauth_callback=' . $callback . '&oauth_signature=' . $sig);
         dd(json_decode($result->getBody()));
     }
 
