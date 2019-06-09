@@ -26,9 +26,6 @@ class FrontController extends Controller
     }
 
     public function addBooking($id) {
-        if(!Auth::check())
-            return redirect('/login');
-
         $flight = Flight::find($id);
         if($flight->isBooked()) {
            return redirect('/bookings')->with('error', 'That flight is already booked.');
