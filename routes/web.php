@@ -43,4 +43,5 @@ Route::get('/booking-manage/remove/{id}', 'FlightController@removeBooking')->mid
 
 // Authentication
 Route::get('/login', 'AuthController@login');
+Route::get('/login/complete', 'AuthController@completeLogin');
 Route::get('/logout', 'AuthController@logout');
