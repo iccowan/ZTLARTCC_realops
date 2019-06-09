@@ -62,7 +62,7 @@ class PullFlights extends Command
                 $flight->deptime = Carbon::createFromTimestamp($r['filed_departure_time']['epoch'])->toDateTimeString();
                 $flight->arrtime = Carbon::createFromTimestamp($r['filed_arrival_time']['epoch'])->toDateTimeString();
                 $flight->flighttime = $flighttime = gmdate('H:i', $r['filed_ete']);
-                if (strpos($flight->daysofweek, $today))
+                if(strpos($flight->daysofweek, $today) !== false)
                     $flight->daysofweek = $flight->daysofweek . $today;
                 $flight->save();
             } else {
