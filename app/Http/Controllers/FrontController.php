@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Email;
 use App\FrontMsg;
 use App\Booking;
 use App\Flight;

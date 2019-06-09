@@ -57,7 +57,7 @@ class User extends Authenticatable
         // If the first passes, the pilot only has one booking or no bookings
         $booking = Booking::where('pilot_id', $this->id)->first();
         if($booking) {
-            $booked_flight = Flight::find($booking->id);
+            $booked_flight = Flight::find($booking->flight_id);
             $proposed_flight = Flight::find($flight_id);
             $booked_deptime = new Carbon($booked_flight->dep_time);
             $booked_deptime = $booked_deptime->timestamp;
