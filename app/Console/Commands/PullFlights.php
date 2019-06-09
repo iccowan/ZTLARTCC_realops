@@ -47,8 +47,10 @@ class PullFlights extends Command
         $today = date('N');
         if($today == '6') {
             $time_now = new Carbon('6/29/2019 ' . $time_now_exact->toTimeString());
-        } else {
+        } elseif($today == '7') {
             $time_now = new Carbon('6/30/2019 ' . $time_now_exact->toTimeString());
+        } else {
+            $time_now = $time_now_exact;
         }
         $event_start = new Carbon('6/29/2019 21:59');
         $event_end = new Carbon('6/30/2019 03:01');
