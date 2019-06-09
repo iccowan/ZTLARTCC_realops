@@ -47,11 +47,12 @@ class AuthController extends Controller
                 return redirect('error', 'There was an error with logging you in. Try restarting your browser and clearing your browser\'s cookies.');
 
             // Make sure the oauth verifier
-            if (!$request->input('oauth_verifier'))
+            if (!$request->input('oauth_verifier')) {
                 $request->session()->forget("SSO");
-            $request->session()->forget("SSO_OBJ");
-            $request->session()->forget("return");
-            return redirect('/')->with('error', 'Missing oauth verifier.');
+                $request->session()->forget("SSO_OBJ");
+                $request->session()->forget("return");
+                return redirect('/')->with('error', 'Missing oauth verifier.');
+            }
 
             // Validate
             $sso_obj = $request->session()->get("SSO_OBJ");
