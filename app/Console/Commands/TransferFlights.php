@@ -39,7 +39,7 @@ class TransferFlights extends Command
      */
     public function handle()
     {
-        $flights = Flight::get();
+        $flights = RwFlight::get();
         foreach($flights as $f) {
             $newf = new Flight();
             $newf->callsign = $f->code;
