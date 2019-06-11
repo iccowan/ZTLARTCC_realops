@@ -44,17 +44,19 @@ class GetRoutes extends Command
         $flight = RwFlight::get();
 
         foreach($flight as $f) {
-            $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/RoutesBetweenAirports?origin=' . $f->depicao . '&destination=' . $f->arricao, [
-                'auth' => [
-                    Config::get('flights.username'), Config::get('flights.api_key')
-                ]
-            ]);
-            $result = json_decode($res->getBody());
+            if($f->route == null) {
+                $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/RoutesBetweenAirports?origin=' . $f->depicao . '&destination=' . $f->arricao, [
+                    'auth' => [
+                        Config::get('flights.username'), Config::get('flights.api_key')
+                    ]
+                ]);
+                $result = json_decode($res->getBody());
 
-            $f->route = $result->RoutesBetweenAirportsResult->data[0]->route;
-            $f->save();
-            // Sleep for 2 seconds to prevent exceeding the query limit
-            sleep(2);
+                $f->route = $result->RoutesBetweenAirportsResult->data[0]->route;
+                $f->save();
+                // Sleep for 2 seconds to prevent exceeding the query limit
+                sleep(2);
+            }
         }
     }
 }
