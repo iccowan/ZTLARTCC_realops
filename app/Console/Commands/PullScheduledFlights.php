@@ -44,7 +44,7 @@ class PullScheduledFlights extends Command
         $client = new Client();
 
         // Do departures
-        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561845600&end_date=1561863600&origin=KATL&howMany=900', [
+        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1560031200&end_date=1560049200&origin=KATL&howMany=900', [
             'auth' => [
                 Config::get('flights.username'), Config::get('flights.api_key')
             ]
@@ -84,7 +84,7 @@ class PullScheduledFlights extends Command
         sleep(60);
 
         // Do arrivals
-        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561838400&end_date=1561863600&destination=KATL&howMany=900', [
+        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1560024000&end_date=1560049200&destination=KATL&howMany=900', [
             'auth' => [
                 Config::get('flights.username'), Config::get('flights.api_key')
             ]
@@ -96,7 +96,7 @@ class PullScheduledFlights extends Command
             $flight = RwFlight::where('code', $r->ident)->first();
             if($flight == null)
                 $flight = RwFlight::where('code', $r->actual_ident)->first();
-            if($flight == null && $r->arrivaltime >= 1561845600 && $r->arrivaltime <= 1561863600) {
+            if($flight == null && $r->arrivaltime >= 1560031200 && $r->arrivaltime <= 1560049200) {
                 $flight = new RwFlight();
                 $flight->code = $r->ident;
                 if($r->actual_ident != '')
