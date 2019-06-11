@@ -41,8 +41,10 @@ class FixDates extends Command
     {
         $flights = Flight::get();
         foreach($flights as $f) {
-            $dep_day = $f->dep_time->format('N');
-            $arr_day = $f->arr_time->format('N');
+            $dep_day = new Carbon($f->dep_time);
+            $arr_day = new Carbon($f->arr_time);
+            $dep_day = $dep_day->format('N');
+            $arr_day = $arr_day->format('N');
             if($dep_day == 6)
                 $dep_time = new Carbon('2019-06-29' . ' ' . substr($f->dep_time, 11));
             elseif($dep_day == 7)
