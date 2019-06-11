@@ -48,16 +48,16 @@ class EmailSender extends Command
         foreach($emails as $e) {
             $user = User::where('email', $e->email_address)->first();
             if($user->email != 'Bad email') {
-                try {
+                //try {
                     Mail::send($e->view, ['email' => $e], function ($m) use ($e) {
                         $m->from('realops@notams.ztlartcc.org', 'ZTL ARTCC Real Ops');
                         $m->to($e->email_address)->subject($e->subject);
                     });
-                } catch (\Exception $except) {
-                    $user = User::where('email', $e->email_address)->first();
-                    $user->email = 'Bad email';
-                    $user->save();
-                }
+                //} catch (\Exception $except) {
+                //    $user = User::where('email', $e->email_address)->first();
+                //    $user->email = 'Bad email';
+                //    $user->save();
+                //}
             }
 
             // Set the email as sent
