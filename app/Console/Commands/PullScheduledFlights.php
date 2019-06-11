@@ -44,7 +44,7 @@ class PullScheduledFlights extends Command
         $client = new Client();
 
         // Do departures
-        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561847400&end_date=1561863600&origin=KATL&exclude_codeshare=true&howMany=150', [
+        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561849200&end_date=1561863600&origin=KATL&exclude_codeshare=true&howMany=150', [
             'auth' => [
                 Config::get('flights.username'), Config::get('flights.api_key')
             ]
@@ -84,7 +84,7 @@ class PullScheduledFlights extends Command
         sleep(60);
 
         // Do arrivals
-        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561840200&end_date=1561863600&destination=KATL&exclude_codeshare=true&howMany=150', [
+        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561842000&end_date=1561863600&destination=KATL&exclude_codeshare=true&howMany=150', [
             'auth' => [
                 Config::get('flights.username'), Config::get('flights.api_key')
             ]
