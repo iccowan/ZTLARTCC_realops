@@ -7,6 +7,7 @@ use App\Email;
 use App\FrontMsg;
 use App\Booking;
 use App\Flight;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -68,6 +69,56 @@ class FrontController extends Controller
                 $airline = $request->airline;
                 $flights_dep = Flight::where('departure', 'KATL')->where('callsign', 'LIKE', $airline . '%')->orderBy('dep_time')->get();
                 $flights_arr = Flight::where('arrival', 'KATL')->where('callsign', 'LIKE', $airline . '%')->orderBy('dep_time')->get();
+            } elseif($sort == 'dep_time') {
+                $start = $request->start_time;
+                $end = $request->end_time;
+                $start_hr = intval(substr($start, 0, 2));
+                $end_hr = intval(substr($end, 0, 2));
+
+                // Convert the times to timestamps
+                if($start_hr >= 22)
+                    $start_stamp = new Carbon('2019-06-29 ' . $start);
+                else
+                    $start_stamp = new Carbon('2019-06-30 ' . $start);
+
+                if($end_hr >= 22)
+                    $end_stamp = new Carbon('2019-06-29 ' . $end);
+                else
+                    $end_stamp = new Carbon('2019-06-30 ' . $end);
+
+                // Get flights with those parameter
+                $flights_dep = Flight::where('departure', 'KATL')->where('dep_time', '>=', $start_stamp)->where('dep_time', '<=', $end_stamp)->orderBy('dep_time')->get();
+                $flights_arr = Flight::where('arrival', 'KATL')->where('dep_time', '>=', $start_stamp)->where('dep_time', '<=', $end_stamp)->orderBy('dep_time')->get();
+            } elseif($sort == 'arr_time') {
+                $start = $request->start_time;
+                $end = $request->end_time;
+                $start_hr = intval(substr($start, 0, 2));
+                $end_hr = intval(substr($end, 0, 2));
+
+                // Convert the times to timestamps
+                if($start_hr >= 22)
+                    $start_stamp = new Carbon('2019-06-29 ' . $start);
+                else
+                    $start_stamp = new Carbon('2019-06-30 ' . $start);
+
+                if($end_hr >= 22)
+                    $end_stamp = new Carbon('2019-06-29 ' . $end);
+                else
+                    $end_stamp = new Carbon('2019-06-30 ' . $end);
+
+                // Get flights with those parameter
+                $flights_dep = Flight::where('departure', 'KATL')->where('arr_time', '>=', $start_stamp)->where('arr_time', '<=', $end_stamp)->orderBy('dep_time')->get();
+                $flights_arr = Flight::where('arrival', 'KATL')->where('arr_time', '>=', $start_stamp)->where('arr_time', '<=', $end_stamp)->orderBy('dep_time')->get();
+            } elseif($sort == 'length') {
+                if($length = 'NaN')
+                    return redirect()->back()->with('error', 'The length of flight should be an integer hour value (1, 2, 3, etc).');
+                $length = intval($request->time);
+
+                // Get all flights +/- 1 hour of the requested length
+                $length_start = $length - 0.5;
+                $length_end = $length + 0.5;
+                $flights_dep = Flight::where('departure', 'KATL')->where('flight_time', '>=', $length_start)->where('flight_time', '<=', $length_end)->orderBy('dep_time')->get();
+                $flights_arr = Flight::where('arrival', 'KATL')->where('flight_time', '>=', $length_start)->where('flight_time', '<=', $length_end)->orderBy('dep_time')->get();
             }
         } else {
             // Get all bookings
