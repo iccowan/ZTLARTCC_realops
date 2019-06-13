@@ -41,14 +41,17 @@ class TransferFlights extends Command
     {
         $flights = RwFlight::get();
         foreach($flights as $f) {
-            $newf = new Flight();
-            $newf->callsign = $f->code;
-            $newf->departure = $f->depicao;
-            $newf->arrival = $f->arricao;
-            $newf->flight_plan = $f->route;
-            $newf->dep_time = $f->deptime;
-            $newf->arr_time = $f->arrtime;
-            $newf->save();
+            $flight = Flight::where('callsign', $f->code)->first();
+            if($flight == null) {
+                $newf = new Flight();
+                $newf->callsign = $f->code;
+                $newf->departure = $f->depicao;
+                $newf->arrival = $f->arricao;
+                $newf->flight_plan = $f->route;
+                $newf->dep_time = $f->deptime;
+                $newf->arr_time = $f->arrtime;
+                $newf->save();
+            }
         }
     }
 }
