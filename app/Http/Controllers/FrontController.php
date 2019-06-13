@@ -21,10 +21,6 @@ class FrontController extends Controller
         return view('site.home')->with('flights', $flights)->with('msg', $msg);
     }
 
-    public function viewBooking($id) {
-        // View own booking (if it exists)
-    }
-
     public function addBooking($id) {
         $flight = Flight::find($id);
         if($flight->isBooked()) {
@@ -64,12 +60,22 @@ class FrontController extends Controller
         }
     }
 
-    public function viewBookings() {
-        // Get all bookings
-        $flights_dep = Flight::where('departure', 'KATL')->orderBy('dep_time')->get();
-        $flights_arr = Flight::where('arrival', 'KATL')->orderBy('dep_time')->get();
+    public function viewBookings(Request $request) {
+        $sort = $request->sort;
+
+        if($sort) {
+            if($sort == 'airline') {
+                $airline = $request->airline;
+                $flights_dep = Flight::where('departure', 'KATL')->where('callsign', 'LIKE', $airline . '%')->orderBy('dep_time')->get();
+                $flights_arr = Flight::where('arrival', 'KATL')->where('callsign', 'LIKE', $airline . '%')->orderBy('dep_time')->get();
+            }
+        } else {
+            // Get all bookings
+            $flights_dep = Flight::where('departure', 'KATL')->orderBy('dep_time')->get();
+            $flights_arr = Flight::where('arrival', 'KATL')->orderBy('dep_time')->get();
+        }
         
-        return view('site.bookings')->with('flights_dep', $flights_dep)->with('flights_arr', $flights_arr);
+        return view('site.bookings')->with('flights_dep', $flights_dep)->with('flights_arr', $flights_arr)->with('sort', $sort);
     }
 
     public function updateFrontMessage(Request $request) {
