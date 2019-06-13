@@ -84,7 +84,7 @@ class PullScheduledFlights extends Command
         sleep(60);
 
         // Do arrivals
-        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561924800&end_date=1561863600&destination=KATL&airline=AAL&exclude_codeshare=true&howMany=150', [
+        $res = $client->request('GET', 'https://flightxml.flightaware.com/json/FlightXML3/AirlineFlightSchedules?start_date=1561838400&end_date=1561863600&destination=KATL&airline=AAL&exclude_codeshare=true&howMany=150', [
             'auth' => [
                 Config::get('flights.username'), Config::get('flights.api_key')
             ]
