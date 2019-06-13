@@ -21,7 +21,7 @@
         @endif
         <div class="form-inline" id="sort">
             <select class="form-control" style="width: 280px" id="sorting" name="sorting">
-                <option selected>Sort Flights</option>
+                <option selected>Filter Flights</option>
                 <option value="1">Airline - AAL</option>
                 <option value="2">Airline - ACA</option>
                 <option value="3">Airline - AFR</option>
@@ -69,6 +69,10 @@
             </div>
         </div>
         <br>
+        @if($sort != null)
+            <a href="/bookings" class="btn btn-info">Remove Filter</a>
+            <br><br>
+        @endif
         <a name="dep"></a>
         <h3>Departures</h3><a href="#arr"><p>(Jump to Arrivals)</p></a>
         <div class="table">
