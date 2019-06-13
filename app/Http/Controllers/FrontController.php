@@ -110,9 +110,9 @@ class FrontController extends Controller
                 $flights_dep = Flight::where('departure', 'KATL')->where('arr_time', '>=', $start_stamp)->where('arr_time', '<=', $end_stamp)->orderBy('dep_time')->get();
                 $flights_arr = Flight::where('arrival', 'KATL')->where('arr_time', '>=', $start_stamp)->where('arr_time', '<=', $end_stamp)->orderBy('dep_time')->get();
             } elseif($sort == 'length') {
-                if($length = 'NaN')
-                    return redirect()->back()->with('error', 'The length of flight should be an integer hour value (1, 2, 3, etc).');
                 $length = intval($request->time);
+                if($length == 'NaN')
+                    return redirect()->back()->with('error', 'The length of flight should be an integer hour value (1, 2, 3, etc).');
 
                 // Get all flights +/- 1 hour of the requested length
                 $length_start = $length - 0.5;
