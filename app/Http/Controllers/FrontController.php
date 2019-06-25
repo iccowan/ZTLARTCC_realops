@@ -192,4 +192,31 @@ class FrontController extends Controller
             return redirect()->back()->with('error', 'You are not allowed to do that.');
         }
     }
+
+    public function viewBookedFlights(Request $request)
+    {
+        if(Auth::user()->isStaff()) {
+            $booked_flights = Booking::get();
+            $flights_dep = array();
+            $flights_arr = array();
+            $i_dep = 0;
+            $i_arr = 0;
+
+            foreach($booked_flights as $b) {
+                $flight = Flight::find($b->flight_id);
+
+                if($flight->departure == 'KATL') {
+                    $flights_dep[$i_dep] = $flight;
+                    $i_dep++;
+                } elseif($flight->arrival == 'KATL') {
+                    $flights_arr[$i_arr] = $flight;
+                    $i_arr++;
+                }
+            }
+
+            return view('site.booked-flights')->with('flights_dep', $flights_dep)->with('flights_arr', $flights_arr);
+        } else {
+            return redirect('/bookings');
+        }
+    }
 }

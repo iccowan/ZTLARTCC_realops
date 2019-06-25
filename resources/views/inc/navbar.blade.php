@@ -11,6 +11,9 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="https://www.aviationapi.com">Charts</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/bookings">Bookings</a>
                 </li>
                 @if(Auth::check())
@@ -19,6 +22,9 @@
                         <div class="dropdown-menu" aria-labelledby="dashboard">
                             @if(Auth::user()->hasBooking() || Auth::user()->isStaff())
                                 <a class="dropdown-item" href="/manage-booking">Manage your Bookings</a>
+                            @endif
+                            @if(Auth::user()->isStaff())
+                                <a class="dropdown-item" href="/booked-flights">View Booked Flights</a>
                             @endif
                             <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>

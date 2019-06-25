@@ -19,6 +19,7 @@ Route::post('/frontmessage/update', 'FrontController@updateFrontMessage')->middl
 
 // View bookings
 Route::get('/bookings', 'FrontController@viewBookings');
+Route::get('/booked-flights', 'FrontController@viewBookedFlights');
 
 // Manage your own booking
 Route::get('/manage-booking', 'FrontController@manageYourBooking')->middleware('auth');
