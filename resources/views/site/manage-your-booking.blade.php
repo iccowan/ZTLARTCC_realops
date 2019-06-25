@@ -107,10 +107,16 @@
             </div>
         </div>
         {{-- Pilot Briefing --}}
-        <hr>
-        <center>
-            <embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://realops.ztlartcc.org/files/pilotBrief.pdf" width="600px" height="910px" />
-        </center>
+        <div class="card">
+            <div class="card-header">
+                <h3>Pilot Briefing</h3>
+            </div>
+            <div class="card-body">
+                <center>
+                    <embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://realops.ztlartcc.org/files/pilotBrief.pdf" width="600px" height="910px" />
+                </center>
+            </div>
+        </div>
     </div>
 
     <script>
