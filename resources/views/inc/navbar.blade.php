@@ -11,7 +11,7 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://www.aviationapi.com">Charts</a>
+                    <a class="nav-link" href="https://www.aviationapi.com" target="_blank">Charts</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/bookings">Bookings</a>
