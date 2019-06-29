@@ -85,4 +85,19 @@ class Flight extends Model
 
         return $time;
     }
+
+    // Get the name of the booked pilot
+    public function getPilotNameAttribute() {
+        $booking = Booking::where('flight_id', $this->id)->first();
+        $pilot = User::find($booking->pilot_id);
+
+        return $pilot->full_name;
+    }
+
+    // Get the CID of the booked pilot
+    public function getPilotCidAttribute() {
+        $booking = Booking::where('flight_id', $this->id)->first();
+
+        return $booking->pilot_id;
+    }
 }

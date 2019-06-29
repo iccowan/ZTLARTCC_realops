@@ -137,4 +137,38 @@ class FlightController extends Controller
             return redirect()->back()->with('error', 'You aren\'t allowed to do that.');
         }
     }
+
+    public function downloadCsv() {
+        $filename = Carbon::now()->timestamp . '_realops_arr_dep.csv';
+        $out_file = fopen('files/csv/' . $filename, 'w');
+
+        $booked_flights = Booking::get();
+        $flights_dep = array();
+        $flights_arr = array();
+        $i_dep = 0;
+        $i_arr = 0;
+
+        foreach($booked_flights as $b) {
+            $flight = Flight::find($b->flight_id);
+
+            if($flight->departure == 'KATL') {
+                $flights_dep[$i_dep] = $flight;
+                $i_dep++;
+            } elseif($flight->arrival == 'KATL') {
+                $flights_arr[$i_arr] = $flight;
+                $i_arr++;
+            }
+        }
+
+        // Write the info to the file
+        fwrite($out_file, 'id,type,callsign,pilot_cid,pilot_name,dep,arr,dep_time,arr_time' . "\n");
+
+        foreach($flights_dep as $f)
+            fwrite($out_file, $f->id . ',d,' . $f->callsign . ',' . $f->pilot_cid . ',' . $f->pilot_name .',' . $f->departure . ',' . $f->arrival . ',' . $f->dep_time . ',' . $f->arr_time . "\n");
+
+        foreach($flights_arr as $f)
+            fwrite($out_file, $f->id . ',a,' . $f->callsign . ',' . $f->pilot_cid . ',' . $f->pilot_name .',' . $f->departure . ',' . $f->arrival . ',' . $f->dep_time . ',' . $f->arr_time . "\n");
+
+        return redirect('/files/csv/' . $filename);
+    }
 }

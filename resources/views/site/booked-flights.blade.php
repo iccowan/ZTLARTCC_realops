@@ -15,6 +15,9 @@
     <br>
 
     <div class="container">
+        <a class="btn btn-info" href="/download-booked-flights">Download CSV of Booked Flights</a>
+        <br><br>
+
         <a name="dep"></a>
         <h3>Departures</h3><a href="#arr"><p>(Jump to Arrivals)</p></a>
         <div class="table">
